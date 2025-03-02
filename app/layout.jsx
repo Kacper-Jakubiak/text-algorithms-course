@@ -1,12 +1,12 @@
 import { Footer, Layout, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 
 export const metadata = {
     title: {
-        default: 'Programowanie w języku Rust',
-        template: 'Programowanie w języku Rust | %s'
+        default: 'Algorytmy tekstowe',
+        template: 'Algorytmy tekstowe | %s'
     },
 }
 
@@ -36,7 +36,6 @@ export default async function RootLayout({ children }) {
             sidebar={{ defaultMenuCollapseLevel: 1 }}
             footer={footer}
             feedback={{content: 'Zauważyłeś błąd, masz pomysł co poprawić - zgłoś propozycję!'}}
-
         >
             {children}
         </Layout>
