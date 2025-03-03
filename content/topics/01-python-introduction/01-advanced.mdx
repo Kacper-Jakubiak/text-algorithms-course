@@ -1,0 +1,175 @@
+# Lekko bardziej zaawansowane funkcje Pythona
+
+## Operacje na stringach
+
+### Podstawowe metody stringów
+
+#### `.lower()` i `.upper()`
+Metody te zmieniają wielkość liter w tekście.
+
+```python
+text = "Python jest SUPER"
+print(text.lower())  # "python jest super"
+print(text.upper())  # "PYTHON JEST SUPER"
+```
+
+#### `.replace(old, new)`
+Zastępuje wszystkie wystąpienia podciągu `old` podciągiem `new`.
+
+```python
+text = "Python jest super"
+print(text.replace("super", "wspaniały"))  # "Python jest wspaniały"
+print(text.replace(" ", ""))  # "Pythonjestwspaniały"
+```
+
+#### `.strip()`, `.lstrip()`, `.rstrip()`
+Usuwają białe znaki (lub podane znaki) z początku i/lub końca tekstu.
+
+```python
+text = "  Python  "
+print(text.strip())   # "Python"
+print(text.lstrip())  # "Python  "
+print(text.rstrip())  # "  Python"
+
+text = "---Python---"
+print(text.strip('-'))  # "Python"
+```
+
+#### `.isalnum()`, `.isalpha()`, `.isdigit()`
+Funkcje sprawdzające typ znaków w tekście.
+
+```python
+print("Python3".isalnum())   # True - zawiera tylko litery i cyfry
+print("Python3".isalpha())   # False - zawiera cyfry
+print("123".isdigit())       # True - zawiera tylko cyfry
+```
+
+### Indeksowanie i wycinanie (slicing)
+
+#### Podstawowe indeksowanie
+W Pythonie indeksy zaczynają się od 0:
+
+```python
+text = "Python"
+print(text[0])  # "P"
+print(text[1])  # "y"
+print(text[-1])  # "n" (ostatni znak)
+print(text[-2])  # "o" (przedostatni znak)
+```
+
+#### Wycinanie (slicing): `text[start:stop:step]`
+
+```python
+text = "Python jest super"
+
+# Od indeksu 0 do 5 (bez 6)
+print(text[0:6])  # "Python"
+print(text[:6])   # "Python" (początek można pominąć)
+
+# Od indeksu 7 do końca
+print(text[7:])   # "jest super"
+
+# Co drugi znak
+print(text[::2])  # "Pto etspř"
+
+# Odwrócenie tekstu
+print(text[::-1])  # "repus tsej nohtyP"
+
+# Pierwszy znak od końca
+print(text[-1:])   # "r"
+
+# Wszystkie znaki oprócz pierwszego
+print(text[1:])    # "ython jest super"
+
+# Wszystkie znaki oprócz ostatniego
+print(text[:-1])   # "Python jest supe"
+```
+
+### Łączenie stringów
+
+#### Operator `+`
+Można łączyć stringi za pomocą operatora `+`:
+
+```python
+first = "Python"
+second = "jest super"
+print(first + " " + second)  # "Python jest super"
+```
+
+#### Metoda `.join()`
+Metoda `join` łączy elementy sekwencji (np. listy) za pomocą separatora:
+
+```python
+words = ["Python", "jest", "super"]
+print(" ".join(words))  # "Python jest super"
+print("-".join(words))  # "Python-jest-super"
+```
+
+## Operacje na listach
+
+### List comprehensions (wyrażenia listowe)
+Zwięzły sposób tworzenia list na podstawie innych sekwencji:
+
+```python
+# Tradycyjny sposób
+numbers = []
+for i in range(1, 6):
+    numbers.append(i * 2)
+print(numbers)  # [2, 4, 6, 8, 10]
+
+# Z użyciem list comprehension
+numbers = [i * 2 for i in range(1, 6)]
+print(numbers)  # [2, 4, 6, 8, 10]
+
+# List comprehension z warunkiem
+even_numbers = [i for i in range(1, 11) if i % 2 == 0]
+print(even_numbers)  # [2, 4, 6, 8, 10]
+```
+
+### Generator expressions (wyrażenia generujące)
+Podobne do list comprehensions, ale tworzą generator zamiast listy:
+
+```python
+# Sumowanie z użyciem generator expression
+sum_of_squares = sum(x**2 for x in range(1, 6))
+print(sum_of_squares)  # 55 (1² + 2² + 3² + 4² + 5²)
+
+# Liczenie znaków w tekście
+text = "Python jest super"
+consonant_count = sum(1 for char in text if char.lower() in "bcdfghjklmnpqrstvwxz")
+print(consonant_count)  # 7
+```
+
+## Praktyczne przykłady
+
+### Czyszczenie tekstu
+Usuwanie niepotrzebnych znaków i normalizacja tekstu:
+
+```python
+def clean_text(text):
+    # Konwersja do małych liter
+    text = text.lower()
+    # Usuwanie znaków interpunkcyjnych i innych nieistotnych
+    clean_text = ''.join(char for char in text if char.isalnum() or char.isspace())
+    return clean_text
+
+print(clean_text("Python jest SUPER! (Naprawdę)"))
+# "python jest super naprawdę"
+```
+
+### Analiza słów w tekście
+Zliczanie wystąpień słów:
+
+```python
+def word_frequency(text):
+    # Czyszczenie i dzielenie tekstu na słowa
+    words = clean_text(text).split()
+    # Słownik z częstotliwością wystąpień
+    frequency = {}
+    for word in words:
+        frequency[word] = frequency.get(word, 0) + 1
+    return frequency
+
+print(word_frequency("Python jest super, Python jest świetny!"))
+# {'python': 2, 'jest': 2, 'super': 1, 'świetny': 1}
+```

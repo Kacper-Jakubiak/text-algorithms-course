@@ -9,9 +9,9 @@ export default {
         title: "Rozdziały",
         type: 'menu',
         items: {
-            "01-python-intro": {
+            "01-python-introduction": {
                 title: "1. Podstawy języka Pythona",
-                href: "/topics/01-python-intro"
+                href: "/topics/01-python-introduction"
             },
         }
     },

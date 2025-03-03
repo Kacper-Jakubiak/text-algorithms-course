@@ -1,0 +1,560 @@
+# Wprowadzenie do języka Python
+
+## Spis treści
+1. [Wprowadzenie](#wprowadzenie)
+2. [Zmienne i typy danych](#zmienne-i-typy-danych)
+3. [Podstawowe operacje](#podstawowe-operacje)
+4. [Struktury danych](#struktury-danych)
+5. [Funkcje](#funkcje)
+6. [Sterowanie przepływem](#sterowanie-przepływem)
+7. [Praca z projektami](#praca-z-projektami)
+8. [Zadania do wykonania](#zadania-do-wykonania)
+
+## Wprowadzenie
+
+Python to interpretowany, wysokopoziomowy język programowania o ogólnym przeznaczeniu. Wyróżnia się czytelnością kodu i prostą składnią, co czyni go doskonałym językiem zarówno dla początkujących, jak i zaawansowanych programistów.
+
+### Pierwsze kroki z Pythonem
+
+Aby zacząć pracę z Pythonem, możesz użyć interaktywnego interpretera (REPL - Read-Eval-Print Loop):
+
+```python
+# Uruchom interpreter Python w terminalu, wpisując:
+python  # lub python3 na niektórych systemach
+
+# Napisz swój pierwszy program:
+print("Hello, World!")
+```
+
+Możesz również utworzyć plik z rozszerzeniem `.py` i uruchomić go z terminala:
+
+```
+# Utwórz plik hello.py
+print("Hello, World!")
+
+# Uruchom z terminala
+python hello.py
+```
+
+## Zmienne i typy danych
+
+W Pythonie zmienne są dynamicznie typowane, co oznacza, że nie trzeba deklarować ich typu - interpreter sam określa typ na podstawie przypisanej wartości.
+
+### Deklarowanie zmiennych
+
+```python
+# Zmienna całkowita
+number = 42
+
+# Zmienna zmiennoprzecinkowa
+pi = 3.14159
+
+# Zmienna tekstowa (string)
+name = "Python"
+
+# Zmienna logiczna (boolean)
+is_awesome = True
+
+# Wypisywanie wartości
+print(number)
+print(f"Wartość pi: {pi}")
+print(f"Nazwa: {name}")
+print(f"Czy Python jest wspaniały? {is_awesome}")
+```
+
+### Podstawowe typy danych
+
+Python posiada kilka podstawowych typów danych:
+
+1. **Liczby**:
+- `int` - liczby całkowite: `42`, `-7`, `0`
+- `float` - liczby zmiennoprzecinkowe: `3.14`, `-0.001`
+- `complex` - liczby zespolone: `3+4j`
+
+2. **Teksty**:
+- `str` - łańcuchy znaków: `"Hello"`, `'Python'`
+
+3. **Wartości logiczne**:
+- `bool` - `True` lub `False`
+
+4. **Typ specjalny**:
+- `None` - reprezentuje brak wartości
+
+```python
+# Sprawdzanie typu zmiennej
+x = 10
+print(type(x))  # <class 'int'>
+
+y = "Hello"
+print(type(y))  # <class 'str'>
+
+z = 3.14
+print(type(z))  # <class 'float'>
+```
+
+## Podstawowe operacje
+
+### Operacje na liczbach
+
+```python
+# Dodawanie
+sum = 5 + 3  # 8
+
+# Odejmowanie
+difference = 10 - 4  # 6
+
+# Mnożenie
+product = 4 * 5  # 20
+
+# Dzielenie (wynik jako float)
+quotient = 20 / 4  # 5.0
+
+# Dzielenie całkowitoliczbowe
+integer_division = 20 // 3  # 6
+
+# Reszta z dzielenia
+remainder = 20 % 3  # 2
+
+# Potęgowanie
+power = 2 ** 3  # 8
+```
+
+### Operacje na stringach
+
+```python
+# Łączenie stringów
+greeting = "Hello" + " " + "Python"  # "Hello Python"
+
+# Powtarzanie stringów
+repeated = "Python" * 3  # "PythonPythonPython"
+
+# Dostęp do znaków (indeksowanie)
+first_char = "Python"[0]  # "P"
+last_char = "Python"[-1]  # "n"
+
+# Wycinanie (slicing)
+substring = "Python"[1:4]  # "yth"
+```
+
+## Struktury danych
+
+### Listy
+
+Listy są uporządkowanymi, modyfikowalnymi kolekcjami elementów. Mogą zawierać elementy różnych typów.
+
+```python
+# Tworzenie listy
+fruits = ["apple", "banana", "cherry"]
+
+# Dostęp do elementów
+first_fruit = fruits[0]  # "apple"
+
+# Modyfikowanie elementów
+fruits[1] = "blueberry"  # ["apple", "blueberry", "cherry"]
+
+# Dodawanie elementów
+fruits.append("orange")  # ["apple", "blueberry", "cherry", "orange"]
+
+# Długość listy
+num_fruits = len(fruits)  # 4
+
+# Usuwanie elementów
+del fruits[0]  # ["blueberry", "cherry", "orange"]
+
+# Iteracja po liście
+for fruit in fruits:
+    print(fruit)
+```
+
+### Krotki (Tuples)
+
+Krotki są uporządkowanymi, niemodykowalnymi kolekcjami elementów.
+
+```python
+# Tworzenie krotki
+point = (10, 20)
+
+# Dostęp do elementów
+x_coord = point[0]  # 10
+y_coord = point[1]  # 20
+
+# Próba modyfikacji spowoduje błąd
+# point[0] = 15  # TypeError: 'tuple' object does not support item assignment
+
+# Rozpakowanie krotki
+x, y = point
+print(x, y)  # 10 20
+```
+
+### Słowniki (Dictionaries)
+
+Słowniki przechowują pary klucz-wartość.
+
+```python
+# Tworzenie słownika
+person = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+}
+
+# Dostęp do wartości
+name = person["name"]  # "John"
+
+# Modyfikowanie wartości
+person["age"] = 31
+
+# Dodawanie nowych par klucz-wartość
+person["job"] = "Developer"
+
+# Sprawdzanie, czy klucz istnieje
+if "age" in person:
+    print(f"Age: {person['age']}")
+
+# Iteracja po słowniku
+for key, value in person.items():
+    print(f"{key}: {value}")
+```
+
+### Zbiory (Sets)
+
+Zbiory przechowują unikalne elementy w nieporządkowanej kolekcji.
+
+```python
+# Tworzenie zbioru
+colors = {"red", "green", "blue"}
+
+# Dodawanie elementów
+colors.add("yellow")
+
+# Usuwanie elementów
+colors.remove("green")
+
+# Sprawdzanie, czy element jest w zbiorze
+is_red_present = "red" in colors  # True
+
+# Operacje na zbiorach
+set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+union = set1 | set2  # {1, 2, 3, 4, 5}
+intersection = set1 & set2  # {3}
+difference = set1 - set2  # {1, 2}
+```
+
+## Funkcje
+
+Funkcje w Pythonie definiuje się za pomocą słowa kluczowego `def`.
+
+### Definiowanie i wywoływanie funkcji
+
+```python
+# Prosta funkcja bez parametrów
+def say_hello():
+    print("Hello, Python!")
+
+# Wywołanie funkcji
+say_hello()
+
+# Funkcja z parametrami
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")
+
+# Funkcja z wartością domyślną parametru
+def greet_with_message(name, message="Welcome!"):
+    print(f"Hello, {name}! {message}")
+
+greet_with_message("Bob")
+greet_with_message("Charlie", "Have a nice day!")
+```
+
+### Zwracanie wartości
+
+```python
+# Funkcja zwracająca wartość
+def add(a, b):
+    return a + b
+
+result = add(5, 3)
+print(result)  # 8
+
+# Funkcja może zwracać wiele wartości (jako krotkę)
+def get_dimensions():
+    return 1920, 1080
+
+width, height = get_dimensions()
+print(f"Width: {width}, Height: {height}")
+```
+
+## Sterowanie przepływem
+
+### Instrukcje warunkowe
+
+```python
+# Prosty if
+age = 20
+if age >= 18:
+    print("Jesteś pełnoletni")
+
+# if-else
+temperature = 15
+if temperature > 20:
+    print("Jest ciepło")
+else:
+    print("Jest chłodno")
+
+# if-elif-else
+score = 85
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+print(f"Ocena: {grade}")
+```
+
+### Pętle
+
+```python
+# Pętla for z zakresu
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# Pętla for po kolekcji
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Pętla while
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Instrukcje break i continue
+for i in range(10):
+    if i == 3:
+        continue  # Pomiń tę iterację
+    if i == 7:
+        break  # Zakończ pętlę
+    print(i)
+```
+
+## Praca z projektami
+
+### Moduły i importy
+
+Python pozwala organizować kod w modułach i pakietach.
+
+```python
+# Importowanie całego modułu
+import math
+print(math.pi)  # 3.141592653589793
+
+# Importowanie konkretnych elementów z modułu
+from math import sqrt, pow
+print(sqrt(16))  # 4.0
+print(pow(2, 3))  # 8.0
+
+# Importowanie z aliasem
+import numpy as np
+```
+
+### Wirtualne środowiska
+
+Wirtualne środowiska pomagają izolować zależności projektu, dzięki czemu różne projekty mogą korzystać z różnych wersji bibliotek bez konfliktów.
+
+#### Virtualenv i venv
+
+Python oferuje wbudowane narzędzie `venv` do tworzenia wirtualnych środowisk:
+
+```bash
+# Tworzenie wirtualnego środowiska
+python -m venv myenv
+
+# Aktywacja środowiska (Windows)
+myenv\Scripts\activate
+
+# Aktywacja środowiska (macOS/Linux)
+source myenv/bin/activate
+
+# Sprawdzenie, czy środowisko jest aktywne (powinno pokazać ścieżkę do środowiska)
+which python  # na macOS/Linux
+where python  # na Windows
+
+# Dezaktywacja środowiska
+deactivate
+```
+
+Alternatywnie można użyć pakietu `virtualenv`, który oferuje więcej opcji:
+
+```bash
+# Instalacja virtualenv
+pip install virtualenv
+
+# Tworzenie środowiska
+virtualenv myproject_env
+
+# Tworzenie środowiska z konkretną wersją Pythona
+virtualenv -p python3.9 myproject_env
+```
+
+#### Zarządzanie zależnościami
+
+Po aktywacji wirtualnego środowiska, można zarządzać zależnościami projektu:
+
+```bash
+# Instalacja pojedynczego pakietu
+pip install requests
+
+# Instalacja konkretnej wersji pakietu
+pip install requests==2.28.1
+
+# Zapisywanie zależności do pliku requirements.txt
+pip freeze > requirements.txt
+
+# Zawartość pliku requirements.txt może wyglądać tak:
+# requests==2.28.1
+# numpy==1.23.4
+# pandas==1.5.1
+
+# Instalacja wszystkich zależności z pliku requirements.txt
+pip install -r requirements.txt
+```
+
+#### Dobra praktyka: struktura projektu z wirtualnym środowiskiem
+
+Typowa struktura projektu Pythona z wirtualnym środowiskiem:
+
+```
+myproject/
+│
+├── venv/                  # Katalog wirtualnego środowiska (nie dodawany do systemu kontroli wersji)
+├── requirements.txt       # Lista zależności
+├── README.md              # Dokumentacja projektu
+├── setup.py               # Plik konfiguracyjny do instalacji pakietu (opcjonalnie)
+│
+├── mypackage/             # Główny pakiet projektu
+│   ├── __init__.py
+│   ├── module1.py
+│   └── module2.py
+│
+└── tests/                 # Testy
+    ├── __init__.py
+    ├── test_module1.py
+    └── test_module2.py
+```
+
+### Poetry - nowoczesne zarządzanie zależnościami
+
+Poetry to nowoczesne narzędzie do zarządzania zależnościami i pakietami w Pythonie, które rozwiązuje wiele problemów związanych z tradycyjnym podejściem używającym `pip` i `setup.py`.
+
+#### Instalacja Poetry
+
+```bash
+# Instalacja na macOS/Linux/WSL
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Instalacja na Windows (PowerShell)
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+```
+
+#### Tworzenie nowego projektu
+
+```bash
+# Utworzenie nowego projektu
+poetry new my-project
+
+# Struktura utworzonego projektu:
+# my-project/
+# ├── pyproject.toml    # Konfiguracja projektu i zależności
+# ├── README.md
+# ├── my_project/       # Kod źródłowy
+# │   └── __init__.py
+# └── tests/            # Testy
+#     └── __init__.py
+```
+
+Można też zainicjować Poetry w istniejącym projekcie:
+
+```bash
+cd existing-project
+poetry init
+```
+
+#### Zarządzanie zależnościami w Poetry
+
+```bash
+# Dodawanie zależności
+poetry add requests
+
+# Dodawanie zależności deweloperskich (tylko do pracy nad projektem)
+poetry add pytest --group dev
+
+# Usuwanie zależności
+poetry remove requests
+
+# Aktualizacja zależności
+poetry update
+
+# Wyświetlanie zainstalowanych zależności
+poetry show
+```
+
+#### Plik pyproject.toml
+
+Poetry używa pliku `pyproject.toml` do konfiguracji projektu i zarządzania zależnościami:
+
+```toml
+[tool.poetry]
+name = "my-project"
+version = "0.1.0"
+description = "Mój wspaniały projekt"
+authors = ["Jan Kowalski <jan.kowalski@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.28.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+```
+
+#### Używanie środowiska wirtualnego z Poetry
+
+Poetry automatycznie tworzy i zarządza wirtualnym środowiskiem:
+
+```bash
+# Uruchamianie komend w środowisku Poetry
+poetry run python myscript.py
+
+# Uruchamianie testów
+poetry run pytest
+
+# Aktywacja shella w środowisku Poetry
+poetry shell
+```
+
+#### Zalety Poetry
+
+1. **Rozwiązywanie konfliktów zależności** - Poetry automatycznie rozwiązuje konflikty i zapewnia kompatybilność wszystkich bibliotek.
+2. **Deterministyczne buildy** - Dzięki plikowi lockfile (`poetry.lock`) każda instalacja będzie miała dokładnie te same wersje zależności.
+3. **Łatwe publikowanie** - Możliwość publikowania paczek na PyPI jednym poleceniem: `poetry publish`.
+4. **Grupy zależności** - Możliwość organizowania zależności w grupy (np. produkcyjne, deweloperskie, testowe).
+5. **Przyjazny interfejs** - Intuicyjne polecenia i komunikaty błędów.
+
+## Materiały dodatkowe
+
+- [Oficjalna dokumentacja Pythona](https://docs.python.org/3/)
+- [PEP 8 - Style Guide for Python Code](https://pep8.org/)

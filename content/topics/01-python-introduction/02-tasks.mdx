@@ -1,0 +1,106 @@
+# Zadania
+
+## 1. Licznik słów i znaków (1 punkt)
+
+Napisz program, który:
+1. Poprosi użytkownika o wprowadzenie tekstu
+2. Obliczy i wyświetli:
+- Liczbę słów w tekście
+- Liczbę znaków (z uwzględnieniem i bez uwzględnienia spacji)
+- Liczbę samogłosek i spółgłosek
+
+```python
+def text_counter():
+    # Pobieranie danych od użytkownika
+    text = input("Wprowadź tekst do analizy: ")
+
+    # Obliczenia
+    # TODO: Oblicz liczbę wszystkich znaków w tekście
+    char_count = ___
+
+    # TODO: Oblicz liczbę znaków bez spacji
+    char_count_no_spaces = ___
+
+    # TODO: Podziel tekst na słowa i oblicz ich liczbę
+    words = ___
+    word_count = ___
+
+    # Liczenie samogłosek i spółgłosek
+    vowels = "aeiouAEIOUąęióóyĄĘIÓÓY"
+    consonants = "bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZćłńśźżĆŁŃŚŹŻ"
+
+    # TODO: Zlicz samogłoski w tekście
+    vowel_count = ___
+
+    # TODO: Zlicz spółgłoski w tekście
+    consonant_count = ___
+
+    # Wyświetlanie wyników
+    print(f"\nAnaliza tekstu: \"{text}\"")
+    print(f"Liczba słów: {word_count}")
+    print(f"Liczba znaków (ze spacjami): {char_count}")
+    print(f"Liczba znaków (bez spacji): {char_count_no_spaces}")
+    print(f"Liczba samogłosek: {vowel_count}")
+    print(f"Liczba spółgłosek: {consonant_count}")
+
+# Wywołanie funkcji
+if __name__ == "__main__":
+    text_counter()
+```
+
+## 2. Palindromy (2 punkty)
+
+Napisz program, który:
+1. Poprosi użytkownika o wprowadzenie słowa lub frazy
+2. Sprawdzi, czy wprowadzony tekst jest palindromem (czyta się tak samo od przodu i od tyłu)
+3. Wyświetli odpowiedni komunikat
+4. W przypadku, gdy tekst nie jest palindromem, zaproponuje najbliższy palindrom przez dodanie minimalnej liczby znaków
+
+```python
+def is_palindrome(text):
+    # TODO: Usuń spacje i przekształć tekst na małe litery
+    text = ___
+
+    # TODO: Sprawdź, czy tekst czytany od przodu jest taki sam jak od tyłu
+    # WSKAZÓWKA: Użyj notacji text[::-1] aby odwrócić tekst
+    return ___
+
+def make_palindrome(text):
+    # Usuwamy spacje i konwertujemy do małych liter
+    text = text.lower().replace(" ", "")
+
+    # Sprawdzamy, czy już jest palindromem
+    if is_palindrome(text):
+        return text
+
+    # TODO: Utwórz palindrom dodając odwrócone znaki na końcu
+    # (bez ostatniego znaku, który już jest na początku odwróconego tekstu)
+    option1 = ___
+
+    # TODO: Utwórz palindrom dodając odwrócone znaki na początku
+    # (bez pierwszego znaku, który już jest na końcu oryginalnego tekstu)
+    option2 = ___
+
+    # TODO: Zwróć krótszą opcję jako wynik
+    return ___
+
+def palindrome_checker():
+    # Pobieranie danych od użytkownika
+    text = input("Wprowadź słowo lub frazę: ")
+
+    # TODO: Usuń znaki, które nie są literami ani cyframi, i zamień na małe litery
+    # WSKAZÓWKA: Wykorzystaj funkcję isalnum() i list comprehension lub wyrażenie generujące
+    clean_text = ___
+
+    # Sprawdzanie, czy to palindrom
+    if is_palindrome(clean_text):
+        print(f"\"{text}\" jest palindromem!")
+    else:
+        print(f"\"{text}\" nie jest palindromem.")
+        suggested = make_palindrome(clean_text)
+        print(f"Sugerowany palindrom: {suggested}")
+
+# Wywołanie funkcji
+if __name__ == "__main__":
+    palindrome_checker()
+```
