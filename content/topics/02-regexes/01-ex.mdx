@@ -1,0 +1,26 @@
+### Zadanie 1: Ekstrakcja informacji z publikacji naukowych - `parse_publication` (2 pkt)
+
+Uzupełnij funkcję `parse_publication`, która analizuje referencje publikacji naukowych w formacie:
+```
+Nazwisko, I., Nazwisko2, I2. (Rok). Tytuł publikacji. Nazwa czasopisma, Tom(Numer), strony.
+```
+
+Przykład:
+```
+Kowalski, J., Nowak, A. (2023). Analiza algorytmów tekstowych. Journal of Computer Science, 45(2), 123-145.
+```
+
+Twoje zadanie:
+1. Zaimplementuj wzorce wyrażeń regularnych dla różnych części referencji
+2. Połącz je w pełny wzorzec do dopasowania całej referencji
+3. Wyodrębnij informacje o autorach, roku, tytule, czasopiśmie, tomie, numerze i stronach
+4. Zwróć słownik zawierający wszystkie wyodrębnione informacje w określonym formacie
+
+Wynikowa struktura powinna zawierać:
+- listę autorów (każdy autor jako słownik `{'last_name': nazwisko, 'initial': inicjał}`)
+- rok publikacji (jako liczba całkowita)
+- tytuł (jako string)
+- czasopismo (jako string)
+- tom (jako liczba całkowita)
+- numer (jako liczba całkowita lub `None` jeśli nie istnieje)
+- zakres stron (jako słownik `{'start': pierwsza_strona, 'end': ostatnia_strona}`)

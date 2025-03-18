@@ -1,0 +1,24 @@
+### Zadanie 2: Analiza linków w kodzie HTML - `extract_links` (2 pkt)
+
+Uzupełnij funkcję `extract_links`, która analizuje fragment kodu HTML i wyodrębnia wszystkie linki (`<a>` tagi).
+
+Twoje zadanie:
+1. Zaimplementuj wyrażenie regularne do dopasowania tagów `<a>` i wyodrębnienia potrzebnych atrybutów
+2. Użyj `re.finditer` do znalezienia wszystkich wystąpień wzorca
+3. Dla każdego znalezionego linku stwórz słownik z odpowiednimi informacjami
+4. Zwróć listę wszystkich znalezionych linków
+
+Każdy słownik w wynikowej liście powinien zawierać:
+- `url`: adres URL (wartość atrybutu `href`)
+- `title`: tytuł linku (wartość atrybutu `title` lub `None` jeśli nie istnieje)
+- `text`: tekst wyświetlany jako link (tekst pomiędzy tagami `<a>` i `</a>`)
+
+Przykład:
+```python
+html = '<div><a href="https://www.agh.edu.pl">AGH</a> <a href="https://www.agh.edu.pl/wydzialy" title="Wydziały">Wydziały AGH</a></div>'
+extract_links(html)
+-> [
+    {'url': 'https://www.agh.edu.pl', 'text': 'AGH', 'title': None},
+    {'url': 'https://www.agh.edu.pl/wydzialy', 'text': 'Wydziały AGH', 'title': 'Wydziały'}
+]
+```

@@ -1,0 +1,25 @@
+### Zadanie 3: Analiza pliku tekstowego - `analyze_text_file` (3 pkt)
+
+Uzupełnij funkcję `analyze_text_file`, która analizuje podany plik tekstowy i zwraca różne statystyki i wzorce.
+Wykorzystaj plik dostarczony w repozytorium jako ten, który analizujesz (`tests/test_file.md`).
+
+Twoje zadanie:
+1. Zaimplementuj wyrażenia regularne do:
+- Wyodrębnienia słów
+- Podziału tekstu na zdania
+- Wykrycia adresów e-mail
+- Wykrycia dat w różnych formatach
+- Podziału tekstu na akapity
+2. Oblicz statystyki:
+- Zlicz słowa
+- Zlicz zdania
+- Znajdź najczęściej występujące słowa (z wyłączeniem stop-words)
+- Oblicz rozmiary akapitów (liczba słów)
+
+Funkcja powinna zwracać słownik zawierający:
+- `word_count`: całkowitą liczbę słów
+- `sentence_count`: liczbę zdań
+- `emails`: listę znalezionych adresów e-mail
+- `frequent_words`: 10 najczęściej występujących słów (z wyłączeniem słów stopowych)
+- `dates`: listę znalezionych dat w różnych formatach
+- `paragraph_sizes`: słownik określający liczbę słów w każdym akapicie

@@ -13,6 +13,10 @@ export default {
                 title: "1. Podstawy języka Pythona",
                 href: "/topics/01-python-introduction"
             },
+            "02-regexes": {
+                title: "2. Wyrażenia regularne",
+                href: "/topics/02-regexes"
+            }
         }
     },
 

@@ -1,0 +1,54 @@
+### Zadanie 4: Implementacja uproszczonego parsera regexpów `build_dfa` (3 pkt)
+
+Uzupełnij kod implementujący algorytm Brzozowskiego, który konwertuje wyrażenia regularne na deterministyczny automat skończony (DFA).
+
+Twoje zadanie:
+1. Zaimplementuj metody `nullable()` dla klas reprezentujących wyrażenia regularne:
+- Określ, czy dane wyrażenie akceptuje pusty ciąg
+2. Zaimplementuj metody `derivative(symbol)` dla każdej klasy wyrażeń:
+- Oblicz pochodną Brzozowskiego wyrażenia względem podanego symbolu
+3. Uzupełnij funkcję `simplify()` dla różnych typów wyrażeń:
+- Zastosuj reguły upraszczające wyrażenia regularne
+4. Zaimplementuj funkcję `build_dfa()`:
+- Użyj algorytmu Brzozowskiego do konstrukcji DFA na podstawie wyrażenia regularnego
+
+Twoja implementacja powinna obsługiwać:
+- Symbole literalne (a, b, c, ...)
+- Konkatenację wyrażeń (ab)
+- Alternatywę wyrażeń (a|b)
+- Gwiazdkę Kleene'a (a*)
+- Epsilon (ε) - pusty ciąg
+- Empty (∅) - pusty język
+
+Wskazówki do implementacji pochodnych Brzozowskiego:
+- Dla symbolu: D(a, a) = ε, D(a, b) = ∅
+- Dla konkatencji: D(rs, a) = D(r, a)s + δ(r)D(s, a), gdzie δ(r) = ε jeśli r nullable, inaczej ∅
+- Dla alternatywy: D(r|s, a) = D(r, a) | D(s, a)
+- Dla gwiazdki Kleene'a: D(r*, a) = D(r, a)r*
+
+Wskazówki do implementacji upraszczania (simplify):
+- r|∅ = r, ∅|r = r, r|r = r
+- r∅ = ∅, ∅r = ∅, rε = r, εr = r
+- (r*)* = r*, ε* = ε, ∅* = ε
+
+Przykład użycia (to będzie działać po poprawnej implementacji):
+```python
+# Wyrażenie regularne: (a|b)*abb
+regex = Concatenation(
+    Concatenation(
+        Concatenation(
+            KleeneStar(Alternative(Symbol('a'), Symbol('b'))),
+            Symbol('a')
+        ),
+        Symbol('b')
+    ),
+    Symbol('b')
+)
+
+# Sprawdzenie, czy łańcuch pasuje do wyrażenia
+dfa = build_dfa(regex, {'a', 'b'})
+assert dfa.accepts("abb") == True
+assert dfa.accepts("aabb") == True
+assert dfa.accepts("babb") == True
+assert dfa.accepts("ab") == False
+```
