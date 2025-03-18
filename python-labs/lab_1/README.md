@@ -1,4 +1,4 @@
-# Wyrażenia regularne - Laboratoria
+# Wyrażenia regularne
 
 W tym laboratorium będziesz implementować różne techniki przetwarzania tekstu przy użyciu wyrażeń regularnych i algorytmów formalnych. Dostarczono szkielety kodu, które należy uzupełnić zgodnie z instrukcjami w komentarzach.
 
