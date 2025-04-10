@@ -227,28 +227,54 @@ def simplify(regex):
 
 
 def build_dfa(regex: RegEx, alphabet: set[str]) -> Optional[DFA]:
-    # TODO: Implement the Brzozowski algorithm to convert regex to DFA
-    # Steps:
-    # 1. Start with the initial regex as the start state
-    # 2. For each state and each symbol in the alphabet:
-    #    - Compute the derivative of the state's regex with respect to the symbol
-    #    - Simplify the resulting regex
-    #    - Add a transition from the current state to a state representing this new regex
-    # 3. States are accepting if their regex is nullable
-    # 4. Continue until no new states are discovered
+    states: set[str] = set()  # Set of state names (q0, q1, etc.)
+    state_to_regex: dict[str, RegEx] = {}  # Maps state names to their regex
+    accept_states: set[str] = set()  # Set of accepting state names
+    transitions: dict[tuple[str, str], str] = {}  # Maps (state, symbol) pairs to next state
+    regex_to_state: dict[str, str] = {}  # Maps string representations of regex to state names
 
-    # Initialize data structures
-    states = set()  # Set of state names (q0, q1, etc.)
-    state_to_regex = {}  # Maps state names to their regex
-    accept_states = set()  # Set of accepting state names
-    transitions = {}  # Maps (state, symbol) pairs to next state
-    regex_to_state = {}  # Maps string representations of regex to state names
-
-    # Initialize state counter for generating unique state names
     state_counter = 0
+    q: deque[str] = deque() # kolejka na stany
 
-    # YOUR CODE HERE
+    def next_name() -> str:
+        # łatwiejsze nazywanie stanów
+        nonlocal state_counter
+        state_counter += 1
+        return f"q{state_counter-1}"
 
-    # Return the constructed DFA
-    # You should return DFA(states, alphabet, transitions, start_state, accept_states)
-    return None
+    start_state: str = next_name()
+    states.add(start_state)
+    state_to_regex[start_state] = regex
+    regex_to_state[str(regex)] = start_state
+    if regex.nullable():
+        accept_states.add(start_state)
+    q.append(start_state)
+
+    while q:
+        current_state: str = q.popleft()
+        current_regex: RegEx = state_to_regex[current_state]
+        for symbol in alphabet:
+            # dla każdego symbolu alfabetu
+            next_regex: RegEx = simplify(current_regex.derivative(symbol))
+            # znajdujemy następny regex
+            if isinstance(next_regex, Empty):
+                continue
+                # pomijamy puste (brak dopasowania)
+            next_regex_str = str(next_regex)
+            if next_regex_str in regex_to_state.keys():
+                # gdy już istnieje ten stan to tylko dodajemy tranzycję
+                transitions[(current_state, symbol)] = regex_to_state[next_regex_str]
+                continue
+            next_state: str = next_name()
+            states.add(next_state)
+            state_to_regex[next_state] = next_regex
+            regex_to_state[next_regex_str] = next_state
+            transitions[(current_state, symbol)] = next_state
+            # dodajemy nowy regex do wszystkich struktur
+            if next_regex.nullable():
+                accept_states.add(next_state)
+                # sprawdzamy, czy jest to stan akceptujący
+            q.append(next_state)
+            #dodajemy na kolejkę przetworzony stan
+
+    return DFA(states, alphabet, transitions, start_state, accept_states)

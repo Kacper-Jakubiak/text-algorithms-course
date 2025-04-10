@@ -1,51 +1,36 @@
 import re
 from typing import Optional
 
-
 def parse_publication(reference: str) -> Optional[dict]:
-    """
-    Parse academic publication reference and extract structured information.
+    authors_year_pattern = r"(?:\w+, \w\., )*\w+, \w. \((?P<year>\d+)\)\. "
+    title_journal_pattern = r"(?P<title>\w+[ \w]*)\. (?P<journal>\w+[ \w]*), "
+    volume_issue_pattern = r"(?P<volume>\d+)(?:\((?P<issue>\d+)\))?, "
+    pages_pattern = r"(?P<first_page>\d+)-(?P<end_page>\d+)\."
+    # po kolei dopasowania do podanego wzorca
+    # zgodnie z przykładem
 
-    Expected reference format:
-    Lastname, I., Lastname2, I2. (Year). Title. Journal, Volume(Issue), StartPage-EndPage.
 
-    Example:
-    Kowalski, J., Nowak, A. (2023). Analiza algorytmów tekstowych. Journal of Computer Science, 45(2), 123-145.
+    full_pattern = authors_year_pattern + title_journal_pattern + volume_issue_pattern + pages_pattern
 
-    Args:
-        reference (str): Publication reference string
-
-    Returns:
-        Optional[dict]: A dictionary containing parsed publication data or None if the reference doesn't match expected format
-    """
-    # TODO: Implement regex patterns to match different parts of the reference
-    # You need to create patterns for:
-    # 1. Authors and year pattern
-    # 2. Title and journal pattern
-    # 3. Volume, issue, and pages pattern
-    authors_year_pattern = r""
-    title_journal_pattern = r""
-    volume_issue_pages_pattern = r""
-
-    # TODO: Combine the patterns
-    full_pattern = ""
-
-    # TODO: Use re.match to try to match the full pattern against the reference
-    # If there's no match, return None
-
-    # TODO: Extract information using regex
-    # Each author should be parsed into a dictionary with 'last_name' and 'initial' keys
+    match = re.match(full_pattern, reference)
+    if match is None:
+        return None
+    # jak nie ma dopasowania, zwracamy None
 
     authors_list = []
+    author_pattern = r"(?P<last_name>(\w+)), (?P<initial>\w)\."
+    # ten sam pattern co w authors_year_pattern, tylko z nazwami grup
 
-    # TODO: Create a pattern to match individual authors
-    author_pattern = r""
+    for author in re.finditer(author_pattern, reference):
+        authors_list.append({"last_name": author.group("last_name"), "initial": author.group("initial")})
 
-    # TODO: Use re.finditer to find all authors and add them to authors_list
-
-    # TODO: Create and return the final result dictionary with all the parsed information
-    # It should include authors, year, title, journal, volume, issue, and pages
-
-    result = {}
-
+    result = {
+        "authors": authors_list,
+        "year": int(match.group("year")),
+        "title": match.group("title"),
+        "journal": match.group("journal"),
+        "volume": int(match.group("volume")),
+        "issue": int(match.group("issue")) if match.group("issue") else None,
+        "pages": {"start": int(match.group("first_page")), "end": int(match.group("end_page"))}
+    }
     return result

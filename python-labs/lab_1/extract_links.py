@@ -1,31 +1,20 @@
 import re
 
-
 def extract_links(html: str) -> list[dict[str, str]]:
-    """
-    Extract all links from the given HTML string.
-
-    Args:
-        html (str): HTML content to analyze
-
-    Returns:
-        list[dict]: A list of dictionaries where each dictionary contains:
-            - 'url': the href attribute value
-            - 'title': the title attribute value (or None if not present)
-            - 'text': the text between <a> and </a> tags
-    """
-
-    # TODO: Implement a regular expression pattern to extract links from HTML.
-    # The pattern should capture three groups:
-    # 1. The URL (href attribute value)
-    # 2. The title attribute (which might not exist)
-    # 3. The link text (content between <a> and </a> tags)
-    pattern = r""
+    url_pattern = r"<a href=\"(?P<url>[^\"]*)\""
+    # url jest zawsze na początku, traktujemy url jako dowolne znaki oprócz [\"]
+    title_pattern = r"(?: title=\"(?P<title>[^\"]*)\")?"
+    # 1 lub 0 dopasowań tytułu, znaki jak powyżej
+    text_pattern = r">(?P<link_text>[^<>]*)</a>"
+    # text tylko między <a> </a>, więc brak znaków [<>] w text_pattern
+    pattern = url_pattern + title_pattern + text_pattern
 
     links = []
-
-    # TODO: Use re.finditer to find all matches of the pattern in the HTML
-    # For each match, extract the necessary information and create a dictionary
-    # Then append that dictionary to the 'links' list
-
+    for link in re.finditer(pattern, html):
+        links.append({
+            "url": link.group("url"),
+            "title": link.group("title"),
+            "text": link.group("link_text"),
+        })
+        # konstrukcja struktury links zgodnie z poleceniem
     return links

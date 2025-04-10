@@ -1,6 +1,6 @@
+import os
 import re
 from collections import Counter
-
 
 def analyze_text_file(filename: str) -> dict:
     try:
@@ -9,7 +9,6 @@ def analyze_text_file(filename: str) -> dict:
     except Exception as e:
         return {"error": f"Could not read file: {str(e)}"}
 
-    # Common English stop words to filter out from frequency analysis
     stop_words = {
         "the",
         "a",
@@ -58,39 +57,64 @@ def analyze_text_file(filename: str) -> dict:
         "their",
     }
 
-    # TODO: Implement word extraction using regex
-    # Find all words in the content (lowercase for consistency)
-    words = ...
+    words = []
+    for word in re.finditer(r"(?P<word>\b[\w./\-@]+\b)", content):
+        words.append(word.group("word").lower())
+    # Szukamy znaków \w oraz kilku innych występujących w datach i mailach,
+    # aby traktować je jako jedno słowo. Rozdzielamy używając \b - word boundary
+    # Dodajemy zmienione na lowercase
     word_count = len(words)
 
-    # TODO: Implement sentence splitting using regex
-    # A sentence typically ends with ., !, or ? followed by a space
-    # Be careful about abbreviations (e.g., "Dr.", "U.S.A.")
-    sentence_pattern = r""
+    sentence_pattern = r".*?[.!?](?=\s)"
+    # Traktujemy zdanie jako ciąg znaków zakończonych [.!?] i białym znakiem
+    # nie udało się znaleźć żadnego rozróżnienia bez patrzenia na znaczenie słów między:
+    # Ala idzie do Jasia. Mama gotuje obiad.
+    # Ala idzie do Dr. Małgorzaty po obiad.
+    # Więc oba powyższe przykłady zostaną potraktowane jako dwa zdania
     sentences = []
+    for sentence in re.finditer(sentence_pattern, content):
+        sentences.append(sentence.group())
     sentence_count = len([s for s in sentences if s.strip()])
 
-    # TODO: Implement email extraction using regex
-    # Extract all valid email addresses from the content
-    email_pattern = r""
-    emails = []
 
-    # TODO: Calculate word frequencies
-    # Count occurrences of each word, excluding stop words and short words
-    # Use the Counter class from collections
+    email_pattern = r"[\w]\S*@\S*[\w]"
+    # traktujemy email jako dowolny ciąg niebiałych znaków z @ w środku
+    # zaczynający i kończący się znakiem "słownym" \w
+    emails = [email.group() for email in re.finditer(email_pattern, content)]
+
     frequent_words = {}
+    word_counter = Counter(words)
+    # używamy Counter()
+    for word in word_counter:
+        if word in stop_words: # pomijamy stop_words
+            continue
+        if len(word) <= 1: # pomijamy krótkie słowa
+            continue
+        if word_counter[word] <= 1: # nie dodajemy słów, które występują tylko raz
+            continue
+        frequent_words[word] = int(word_counter[word])
 
-    # TODO: Implement date extraction with multiple formats
-    # Detect dates in various formats: YYYY-MM-DD, DD.MM.YYYY, MM/DD/YYYY, etc.
-    # Create multiple regex patterns for different date formats
-    date_patterns = []
+    month = r"\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\b"
+    # miesiące oraz ich 3-literowe skróty
+    date_patterns = [
+        r"\d{4}[\-._,/ ]\d{2}[\-._,/ ]\d{2}", # YYYY MM DD
+        r"\d{2}[\-._,/ ]\d{2}[\-._,/ ]\d{4}", # DD MM YYYY
+        # oba powyższe wzorce zakładają, że podział między
+        # liczbami w dacie może być za pomocą dowolnego znaku z
+        # [\-._,/ ]
+        month + r" \d\d?, \d{4}" # słowne podanie miesiąca
+    ]
+
     dates = []
+    for date_pattern in date_patterns:
+        for date in re.finditer(date_pattern, content):
+            dates.append(date.group())
 
-    # TODO: Analyze paragraphs
-    # Split the content into paragraphs and count words in each
-    # Paragraphs are typically separated by one or more blank lines
     paragraphs = re.split(r"\n\s*\n", content)
     paragraph_sizes = {}
+    for i, paragraph in enumerate(paragraphs):
+        paragraph_sizes[i] = len([word for word in re.finditer(r"(?P<word>\b[\w./\-@]+\b)", paragraph)])
+        # używamy tego samego wzorca słów co w podliczaniu wszystkich słów
 
     return {
         "word_count": word_count,
