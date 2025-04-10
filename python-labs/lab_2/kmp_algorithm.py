@@ -8,7 +8,6 @@ def compute_lps_array(pattern: str) -> list[int]:
     Returns:
         The LPS array
     """
-    # TODO: Implement the Longest Prefix Suffix (LPS) array computation
     # The LPS array helps in determining how many characters to skip when a mismatch occurs
     # For each position i, compute the length of the longest proper prefix of pattern[0...i]
     # that is also a suffix of pattern[0...i]
@@ -42,7 +41,6 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
     Returns:
         A list of starting positions (0-indexed) where the pattern was found in the text
     """
-    # TODO: Implement the KMP string matching algorithm
     # 1. Preprocess the pattern to compute the LPS array
     # 2. Use the LPS array to determine how much to shift the pattern when a mismatch occurs
     # 3. This avoids redundant comparisons by using information about previous matches

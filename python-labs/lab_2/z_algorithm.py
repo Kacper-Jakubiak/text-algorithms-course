@@ -17,7 +17,6 @@ def compute_z_array(s: str) -> list[int]:
     Returns:
         The Z array for the string
     """
-    # TODO: Implement the Z-array computation
     # For each position i:
     # - Calculate the length of the longest substring starting at i that is also a prefix of s
     # - Use the Z-box technique to avoid redundant character comparisons
@@ -52,7 +51,6 @@ def z_pattern_match(text: str, pattern: str) -> list[int]:
     Returns:
         A list of starting positions (0-indexed) where the pattern was found in the text
     """
-    # TODO: Implement pattern matching using the Z algorithm
     # 1. Create a concatenated string: pattern + special_character + text
     # 2. Compute the Z array for this concatenated string
     # 3. Find positions where Z[i] equals the pattern length
