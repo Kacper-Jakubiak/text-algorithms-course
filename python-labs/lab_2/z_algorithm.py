@@ -60,9 +60,7 @@ def z_pattern_match(text: str, pattern: str) -> list[int]:
     # 5. Return all positions where the pattern is found in the text
     n = len(text)
     m = len(pattern)
-    if n == 0 or m == 0:
-        return []
-    if m > n:
+    if n == 0 or m == 0 or m > n:
         return []
 
     final = pattern + '$' + text
