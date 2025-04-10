@@ -1,26 +1,3 @@
-def len_of_common_prefix(str1: str, str2: str) -> int:
-    for k in range(min(len(str1), len(str2))):
-        if str1[k] != str2[k]:
-            return k
-    return min(len(str1), len(str2))
-
-def compute_z_array(s: str) -> list[int]:
-    n = len(s)
-    z_array = [0] * n
-    # z_array[0] = n
-    left, right = 0, 0
-    for k in range(1, n):
-        if k > right:
-            z_array[k] = len_of_common_prefix(s, s[k:])
-            if z_array[k] > 0:
-                left, right = k, k + z_array[k]
-        elif z_array[k-left] >= right-k:
-            z_array[k] = right - k + len_of_common_prefix(s[right:], s[right-k:])
-            left, right = k, k + z_array[k]
-        else:
-            z_array[k] = z_array[k-left]
-    return z_array
-
 def compute_lps_array(pattern: str) -> list[int]:
     """
     Compute the Longest Proper Prefix which is also Suffix array for KMP algorithm.
@@ -36,13 +13,22 @@ def compute_lps_array(pattern: str) -> list[int]:
     # For each position i, compute the length of the longest proper prefix of pattern[0...i]
     # that is also a suffix of pattern[0...i]
     # Hint: Use the information from previously computed values to avoid redundant comparisons
-    z_array = compute_z_array(pattern)
     m = len(pattern)
-    p = [0] * (m+1)
-    for j in range(m-1, 0, -1):
-        p[j + z_array[j]] = z_array[j]
-
-    return p
+    lps = [0] * m
+    i = 1
+    longest = 0
+    while i < m:
+        if pattern[i] == pattern[longest]:
+            longest += 1
+            lps[i] = longest
+            i += 1
+        else:
+            if longest != 0:
+                longest = lps[longest - 1]
+            else:
+                lps[i] = 0
+                i += 1
+    return lps
 
 
 def kmp_pattern_match(text: str, pattern: str) -> list[int]:
@@ -68,8 +54,8 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
     if m == 0 or n < m:
         return []
 
-    i = 0  # index for text
-    j = 0  # index for pattern
+    i = 0
+    j = 0
 
     while i < n:
         if pattern[j] == text[i]:
@@ -77,20 +63,18 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
             j += 1
 
         if j == m:
-            # Match found
             result.append(i - j)
-            j = lps[j - 1]  # Continue searching for next match
-
+            j = lps[j - 1]
         elif i < n and pattern[j] != text[i]:
             if j != 0:
-                j = lps[j - 1]  # Fallback in the pattern
+                j = lps[j - 1]
             else:
-                i += 1  # Move to the next character in text
+                i += 1
 
     return result
 
 if __name__ == '__main__':
-    wzor = "AAAA"
+    wzor = "ABABACA"
     tablice = compute_lps_array(wzor)
     print(list(wzor))
     print(tablice)
