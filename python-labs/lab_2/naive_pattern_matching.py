@@ -16,13 +16,17 @@ def naive_pattern_match(text: str, pattern: str) -> list[int]:
     # 3. If all characters match, add the starting position to the results
     # 4. Handle edge cases like empty patterns and patterns longer than the text
 
-    if text == "" or pattern == "":
+    n = len(text)
+    m = len(pattern)
+    if n == 0 or m == 0:
         return []
-    if len(pattern) > len(text):
+    if m > n:
         return []
 
     result: list[int] = []
     for i, _ in enumerate(text):
+        if i + m > n:
+            break
         if text[i:i+len(pattern)] == pattern:
             result.append(i)
 

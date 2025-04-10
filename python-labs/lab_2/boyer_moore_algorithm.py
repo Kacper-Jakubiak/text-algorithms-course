@@ -1,3 +1,9 @@
+def backward_has_prefix(s: str, pattern: str) -> bool:
+    for j in range(len(pattern)-1, -1, -1):
+        if s[j] != pattern[j]:
+            return False
+    return True
+
 def compute_bad_character_table(pattern: str) -> dict:
     """
     Compute the bad character table for the Boyer-Moore algorithm.
@@ -13,8 +19,10 @@ def compute_bad_character_table(pattern: str) -> dict:
     # This table maps each character to its rightmost occurrence in the pattern
     # For characters not in the pattern, they should not be in the dictionary
     # Remember that this is used to determine how far to shift when a mismatch occurs
-
-    return {}
+    result = {}
+    for i, char in enumerate(pattern):
+        result[char] = i
+    return result
 
 
 def compute_good_suffix_table(pattern: str) -> list[int]:
@@ -53,5 +61,15 @@ def boyer_moore_pattern_match(text: str, pattern: str) -> list[int]:
     # 2. Start matching from the end of the pattern and move backwards
     # 3. When a mismatch occurs, use the maximum shift from both tables
     # 4. Return all positions where the pattern is found in the text
+    n = len(text)
+    m = len(pattern)
+    if n == 0 or m == 0:
+        return []
+    if m > n:
+        return []
 
-    return []
+    bad = compute_bad_character_table(pattern)
+    good = compute_good_suffix_table(pattern)
+    result: list[int] = []
+
+    return result
