@@ -68,6 +68,7 @@ def z_pattern_match(text: str, pattern: str) -> list[int]:
     for i, value in enumerate(z_array):
         if value != m:
             continue
-        result.append(i - m - 1)
+        if i - m - 1 >= 0:
+            result.append(i - m - 1)
 
     return result

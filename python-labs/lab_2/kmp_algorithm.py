@@ -54,12 +54,10 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
 
     i = 0
     j = 0
-
     while i < n:
         if pattern[j] == text[i]:
             i += 1
             j += 1
-
         if j == m:
             result.append(i - j)
             j = lps[j - 1]
@@ -68,7 +66,6 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
                 j = lps[j - 1]
             else:
                 i += 1
-
     return result
 
 if __name__ == '__main__':

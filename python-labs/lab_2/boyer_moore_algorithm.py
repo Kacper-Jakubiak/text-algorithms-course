@@ -82,9 +82,7 @@ def boyer_moore_pattern_match(text: str, pattern: str) -> list[int]:
     # 4. Return all positions where the pattern is found in the text
     n = len(text)
     m = len(pattern)
-    if n == 0 or m == 0:
-        return []
-    if m > n:
+    if n == 0 or m == 0 or m > n:
         return []
 
     bad = compute_bad_character_table(pattern)
@@ -100,7 +98,7 @@ def boyer_moore_pattern_match(text: str, pattern: str) -> list[int]:
         else:
             bad_shift = j - bad.get(text[k+j], 0)
             good_shift = good[j]
-            print(bad_shift, good_shift)
+            # print(bad_shift, good_shift)
             k += max(bad_shift, good_shift)
 
     return result

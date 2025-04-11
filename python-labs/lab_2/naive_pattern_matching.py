@@ -17,16 +17,14 @@ def naive_pattern_match(text: str, pattern: str) -> list[int]:
 
     n = len(text)
     m = len(pattern)
-    if n == 0 or m == 0:
-        return []
-    if m > n:
+    if n == 0 or m == 0 or m > n:
         return []
 
     result: list[int] = []
-    for i, _ in enumerate(text):
-        if i + m > n:
-            break
-        if text[i:i+len(pattern)] == pattern:
-            result.append(i)
+    k = 0
+    while k + m <= n:
+        if text[k:k+m] == pattern:
+            result.append(k)
+        k += 1
 
     return result
