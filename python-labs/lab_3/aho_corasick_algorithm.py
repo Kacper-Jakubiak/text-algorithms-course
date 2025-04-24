@@ -35,6 +35,7 @@ class AhoCorasick:
                 node.AddIfNew(char)
                 node = node.goto[char]
             node.output.append(pattern)
+        return
 
     def _build_failure_links(self):
         """Builds failure links and propagates outputs through them."""
@@ -61,9 +62,6 @@ class AhoCorasick:
                 v.output += v.fail.output
                 queue.append(v)
 
-
-
-
     def search(self, text: str) -> List[Tuple[int, str]]:
         """
         Searches for all occurrences of patterns in the given text.
@@ -87,6 +85,3 @@ class AhoCorasick:
             for pattern in node.output:
                 result.append((i - len(pattern) + 1, pattern))
         return result
-
-if __name__ == "__main__":
-    ac = AhoCorasick(["a", "na", "nam", "znana", "pozna"])
