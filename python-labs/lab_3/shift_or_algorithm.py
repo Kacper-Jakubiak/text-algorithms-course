@@ -62,7 +62,7 @@ def shift_or(text: str, pattern: str) -> list[int]:
         return []
     result = []
     masks = make_mask(pattern)
-    s = 0xf
+    s = ~0
     for i, c in enumerate(text):
         s = (s << 1) | masks[ord(c)]
         if nth_bit(s, m-1) == 0:
@@ -71,4 +71,4 @@ def shift_or(text: str, pattern: str) -> list[int]:
     return result
 
 if __name__ == "__main__":
-    print(make_mask('dzwiedz'))
+    print(0xff)

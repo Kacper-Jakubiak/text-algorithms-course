@@ -11,7 +11,13 @@ def hamming_distance(s1: str, s2: str) -> int:
         Jeśli ciągi mają różne długości, zwraca -1
     """
     # TODO: Zaimplementuj obliczanie odległości Hamminga
-    pass
+    if len(s1) != len(s2):
+        return -1
+    result = 0
+    for c1, c2 in zip(s1, s2):
+        if c1 != c2:
+            result += 1
+    return result
 
 
 def set_nth_bit(n: int) -> int:
@@ -25,7 +31,7 @@ def set_nth_bit(n: int) -> int:
         Maska bitowa z n-tym bitem ustawionym na 1
     """
     # TODO: Zaimplementuj ustawianie n-tego bitu
-    pass
+    return 1 << n
 
 
 def nth_bit(m: int, n: int) -> int:
@@ -40,7 +46,7 @@ def nth_bit(m: int, n: int) -> int:
         Wartość n-tego bitu (0 lub 1)
     """
     # TODO: Zaimplementuj odczytywanie n-tego bitu
-    pass
+    return (m >> n) & 1
 
 
 def make_mask(pattern: str) -> list:
@@ -54,7 +60,14 @@ def make_mask(pattern: str) -> list:
         Tablica 256 masek, gdzie każda maska odpowiada jednemu znakowi ASCII
     """
     # TODO: Zaimplementuj tworzenie tablicy masek
-    pass
+    if not pattern:
+        return [0xff] * 256
+    masks = [0] * 256
+    for i, c in enumerate(pattern):
+        masks[ord(c)] |= set_nth_bit(i)
+    for i in range(256):
+        masks[i] = ~masks[i]
+    return masks
 
 
 def fuzzy_shift_or(text: str, pattern: str, k: int = 2) -> list[int]:
@@ -73,4 +86,19 @@ def fuzzy_shift_or(text: str, pattern: str, k: int = 2) -> list[int]:
     # TODO: Zaimplementuj algorytm przybliżonego wyszukiwania Shift-Or
     # TODO: Obsłuż przypadki brzegowe (pusty wzorzec, wzorzec dłuższy niż tekst, k < 0)
     # TODO: Zaimplementuj główną logikę algorytmu
-    return []
+    n = len(text)
+    m = len(pattern)
+    if n == 0 or m == 0 or m > n or k < 0:
+        return []
+    result = []
+
+    masks = make_mask(pattern)
+    s = [~0 for _ in range(k + 1)]
+
+    for i, c in enumerate(text):
+        for j in range(k, 0, -1):
+            s[j] = ((s[j] << 1) | 1) & masks[ord(c)] | (s[j - 1] << 1) | 1
+        s[0] = ((s[0] << 1) | 1) & masks[ord(c)]
+        if nth_bit(s[k], m - 1) == 0:
+            result.append(i - m + 1)
+    return result
