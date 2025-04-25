@@ -22,7 +22,7 @@ class AhoCorasick:
     def __init__(self, patterns: List[str]):
         # TODO: Zainicjalizuj strukturę Aho-Corasick i usuń puste wzorce
         self.root = AhoCorasickNode()
-        self.patterns = [p for p in patterns if p]  # usuń puste wzorce
+        self.patterns = [p for p in patterns if p]
         self._build_trie()
         self._build_failure_links()
 

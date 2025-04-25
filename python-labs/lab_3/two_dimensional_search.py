@@ -3,7 +3,6 @@ from typing import List, Tuple, Optional
 
 class AhoCorasickNode:
     def __init__(self):
-        # TODO: Zainicjalizuj struktury potrzebne dla węzła w drzewie Aho-Corasick
         self.goto: dict[str, 'AhoCorasickNode'] = {}
         self.fail: Optional['AhoCorasickNode'] = None
         self.output = []
@@ -15,18 +14,14 @@ class AhoCorasickNode:
 
     def SetFail(self, node: 'AhoCorasickNode'):
         self.fail = node
-
 class AhoCorasick:
     def __init__(self, patterns: List[str]):
-        # TODO: Zainicjalizuj strukturę Aho-Corasick i usuń puste wzorce
         self.root = AhoCorasickNode()
         self.patterns = [p for p in patterns if p]  # usuń puste wzorce
         self._build_trie()
         self._build_failure_links()
 
     def _build_trie(self):
-        """Builds the trie structure for the given patterns."""
-        # TODO: Zaimplementuj budowanie drzewa typu trie dla podanych wzorców
         for pattern in self.patterns:
             node = self.root
             for char in pattern:
@@ -36,17 +31,10 @@ class AhoCorasick:
         return
 
     def _build_failure_links(self):
-        """Builds failure links and propagates outputs through them."""
-        # TODO: Zaimplementuj tworzenie failure links
-        # TODO: Utwórz kolejkę do przechodzenia przez drzewo w szerokość (BFS)
-        # TODO: Zainicjalizuj łącza awaryjne dla węzłów na głębokości 1
-        # TODO: Użyj BFS do ustawienia łączy awaryjnych dla głębszych węzłów
-        # TODO: Propaguj wyjścia przez łącza awaryjne
         queue: deque[AhoCorasickNode] = deque()
         for node in self.root.goto.values():
             node.fail = self.root
             queue.append(node)
-
         while queue:
             u = queue.popleft()
             for c, v in u.goto.items():
@@ -61,20 +49,11 @@ class AhoCorasick:
                 queue.append(v)
 
     def search(self, text: str) -> List[Tuple[int, str]]:
-        """
-        Searches for all occurrences of patterns in the given text.
-
-        Returns:
-            List of tuples (start_index, pattern).
-        """
-        # TODO: Zaimplementuj wyszukiwanie wzorców w tekście
-        # TODO: Zwróć listę krotek (indeks_początkowy, wzorzec)
         result = []
         node = self.root
         for i, c in enumerate(text):
             while node != self.root and c not in node.goto:
                 node = node.fail
-
             if c in node.goto:
                 node = node.goto[c]
             else:
@@ -127,6 +106,7 @@ def find_pattern_2d(text: list[str], pattern: list[str]) -> list[tuple[int, int]
         return []
     if len(text) < len(pattern) or len(text[0]) < len(pattern[0]):
         return []
+
     T = [[-1] * len(text[0]) for _ in text]
     findings = [find_pattern_in_column(column, pattern) for column in text]
     for i, line in enumerate(findings):
@@ -141,19 +121,18 @@ def find_pattern_2d(text: list[str], pattern: list[str]) -> list[tuple[int, int]
         answers = ac.search(aho_text)
         for ans, _ in answers:
             result.append((ans, j))
-
     return result
 
 
-if __name__ == '__main__':
-    text = [
-        "abcabc",
-        "defdef",
-        "abcabc"
-    ]
-    pattern = [
-        "abc",
-        "def"
-    ]
-    r = find_pattern_2d(text, pattern)
-    print(r)
+# if __name__ == '__main__':
+#     text = [
+#         "abcabc",
+#         "defdef",
+#         "abcabc"
+#     ]
+#     pattern = [
+#         "aaa",
+#         "aaa"
+#     ]
+#     r = find_pattern_2d(text, pattern)
+#     print(r)
