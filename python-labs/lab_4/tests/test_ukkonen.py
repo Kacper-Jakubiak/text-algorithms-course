@@ -1,6 +1,6 @@
 import pytest
 
-from lab4.ukkonen import SuffixTree
+
 
 class TestUkkonen:
     def test_basic(self):
