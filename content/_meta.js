@@ -22,12 +22,15 @@ export default {
                 href: "/topics/03-pattern-matching-1"
             },
             "04-pattern-matching-2": {
-                title: "3. Wyszukiwanie wzorców (2)",
+                title: "4. Wyszukiwanie wzorców (2)",
                 href: "/topics/04-pattern-matching-2"
+            },
+            "05-suffixes-and-pattern-matching-summary": {
+                title: "5. Struktury Sufiksowe i Dopasowywanie Wzorców",
+                href: "/topics/05-suffixes-and-pattern-matching-summary"
             }
         }
     },
-
 
     "text-algorithms-book": {
         title: "Text Algorithms Book",
