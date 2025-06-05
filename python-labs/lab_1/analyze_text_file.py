@@ -1,6 +1,6 @@
-import os
 import re
 from collections import Counter
+
 
 def analyze_text_file(filename: str) -> dict:
     try:
@@ -76,7 +76,6 @@ def analyze_text_file(filename: str) -> dict:
         sentences.append(sentence.group())
     sentence_count = len([s for s in sentences if s.strip()])
 
-
     email_pattern = r"[\w]\S*@\S*[\w]"
     # traktujemy email jako dowolny ciąg niebiałych znaków z @ w środku
     # zaczynający i kończący się znakiem "słownym" \w
@@ -86,23 +85,23 @@ def analyze_text_file(filename: str) -> dict:
     word_counter = Counter(words)
     # używamy Counter()
     for word in word_counter:
-        if word in stop_words: # pomijamy stop_words
+        if word in stop_words:  # pomijamy stop_words
             continue
-        if len(word) <= 1: # pomijamy krótkie słowa
+        if len(word) <= 1:  # pomijamy krótkie słowa
             continue
-        if word_counter[word] <= 1: # nie dodajemy słów, które występują tylko raz
+        if word_counter[word] <= 1:  # nie dodajemy słów, które występują tylko raz
             continue
         frequent_words[word] = int(word_counter[word])
 
     month = r"\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\b"
     # miesiące oraz ich 3-literowe skróty
     date_patterns = [
-        r"\d{4}[\-._,/ ]\d{2}[\-._,/ ]\d{2}", # YYYY MM DD
-        r"\d{2}[\-._,/ ]\d{2}[\-._,/ ]\d{4}", # DD MM YYYY
+        r"\d{4}[\-._,/ ]\d{2}[\-._,/ ]\d{2}",  # YYYY MM DD
+        r"\d{2}[\-._,/ ]\d{2}[\-._,/ ]\d{4}",  # DD MM YYYY
         # oba powyższe wzorce zakładają, że podział między
         # liczbami w dacie może być za pomocą dowolnego znaku z
         # [\-._,/ ]
-        month + r" \d\d?, \d{4}" # słowne podanie miesiąca
+        month + r" \d\d?, \d{4}"  # słowne podanie miesiąca
     ]
 
     dates = []

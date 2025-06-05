@@ -1,7 +1,3 @@
-import pytest
-
-
-
 class TestUkkonen:
     def test_basic(self):
         pattern = "na"

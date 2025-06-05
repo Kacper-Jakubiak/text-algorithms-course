@@ -23,13 +23,14 @@ def levenshtein_distance(s1: str, s2: str) -> int:
     for i in range(1, a):
         matrix[i % 2][0] = i
         for j in range(1, b):
-            matrix[i%2][j] = min(
-                matrix[(i+1)%2][j] + 1,
-                matrix[i%2][j-1] + 1,
-                matrix[(i+1)%2][j-1] + (0 if s1[i-1] == s2[j-1] else 1)
+            matrix[i % 2][j] = min(
+                matrix[(i + 1) % 2][j] + 1,
+                matrix[i % 2][j - 1] + 1,
+                matrix[(i + 1) % 2][j - 1] + (0 if s1[i - 1] == s2[j - 1] else 1)
             )
 
     return matrix[len(s1) % 2][len(s2)]
+
 
 if __name__ == "__main__":
     levenshtein_distance('barbara', 'ba')

@@ -1,5 +1,3 @@
-import pytest
-
 from lab_3.aho_corasick_algorithm import AhoCorasick
 
 

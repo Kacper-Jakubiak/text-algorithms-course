@@ -171,9 +171,9 @@ def simplify(regex):
     Simplify regex expressions to canonical form to improve state identification.
     """
     if (
-        isinstance(regex, Empty)
-        or isinstance(regex, Epsilon)
-        or isinstance(regex, Symbol)
+            isinstance(regex, Empty)
+            or isinstance(regex, Epsilon)
+            or isinstance(regex, Symbol)
     ):
         return regex
 
@@ -234,13 +234,13 @@ def build_dfa(regex: RegEx, alphabet: set[str]) -> Optional[DFA]:
     regex_to_state: dict[str, str] = {}  # Maps string representations of regex to state names
 
     state_counter = 0
-    q: deque[str] = deque() # kolejka na stany
+    q: deque[str] = deque()  # kolejka na stany
 
     def next_name() -> str:
         # łatwiejsze nazywanie stanów
         nonlocal state_counter
         state_counter += 1
-        return f"q{state_counter-1}"
+        return f"q{state_counter - 1}"
 
     start_state: str = next_name()
     states.add(start_state)
@@ -275,6 +275,6 @@ def build_dfa(regex: RegEx, alphabet: set[str]) -> Optional[DFA]:
                 accept_states.add(next_state)
                 # sprawdzamy, czy jest to stan akceptujący
             q.append(next_state)
-            #dodajemy na kolejkę przetworzony stan
+            # dodajemy na kolejkę przetworzony stan
 
     return DFA(states, alphabet, transitions, start_state, accept_states)

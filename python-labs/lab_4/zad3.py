@@ -1,15 +1,19 @@
 ## Zadanie 3: Tablica Sufiksów vs. Drzewo Sufiksów (2 pkt)
 import random
 import string
-from time import perf_counter as pf
-from ukkonen import SuffixTree
 import tracemalloc
+from time import perf_counter as pf
+
 from matplotlib import pyplot as plt
+
+from ukkonen import SuffixTree
+
 
 # Zaimplementuj obie struktury danych - tablicę sufiksów i drzewo sufiksów - dla tego samego tekstu, a następnie porównaj ich zużycie pamięci i czas konstrukcji.
 
 def make_suffix_array(text: str) -> list[int]:
     return [1]
+
 
 def compare_suffix_structures(text: str) -> dict:
     """
@@ -57,6 +61,7 @@ def compare_suffix_structures(text: str) -> dict:
         }
     }
 
+
 def main():
     results = []
     lengths = [100, 1000, 10000, 100000]
@@ -66,8 +71,8 @@ def main():
 
     plots = ["construction_time_ms", "memory_usage_kb", "size"]
     for title in plots:
-        plt.plot((2, 3, 4, 5), [r["suffix_array"][title] for r in results], 'o', label = 'array')
-        plt.plot((2, 3, 4, 5), [r["suffix_tree"][title] for r in results], 'o', label = 'tree')
+        plt.plot((2, 3, 4, 5), [r["suffix_array"][title] for r in results], 'o', label='array')
+        plt.plot((2, 3, 4, 5), [r["suffix_tree"][title] for r in results], 'o', label='tree')
         plt.title(title)
         plt.legend()
         plt.savefig(f'zad4_{title}.png')

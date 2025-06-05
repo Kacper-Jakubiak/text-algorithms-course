@@ -1,6 +1,7 @@
 import re
 from typing import Optional
 
+
 def parse_publication(reference: str) -> Optional[dict]:
     authors_year_pattern = r"(?:\w+, \w\., )*\w+, \w. \((?P<year>\d+)\)\. "
     title_journal_pattern = r"(?P<title>\w+[ \w]*)\. (?P<journal>\w+[ \w]*), "
@@ -8,7 +9,6 @@ def parse_publication(reference: str) -> Optional[dict]:
     pages_pattern = r"(?P<first_page>\d+)-(?P<end_page>\d+)\."
     # po kolei dopasowania do podanego wzorca
     # zgodnie z przykładem
-
 
     full_pattern = authors_year_pattern + title_journal_pattern + volume_issue_pattern + pages_pattern
 

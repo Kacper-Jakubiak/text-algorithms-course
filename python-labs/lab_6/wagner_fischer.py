@@ -1,7 +1,7 @@
 def wagner_fischer(s1: str, s2: str,
-                  insert_cost: int = 1,
-                  delete_cost: int = 1,
-                  substitute_cost: int = 1) -> int:
+                   insert_cost: int = 1,
+                   delete_cost: int = 1,
+                   substitute_cost: int = 1) -> int:
     """
     Oblicza odległość edycyjną używając algorytmu Wagnera-Fischera (programowanie dynamiczne).
 
@@ -17,6 +17,7 @@ def wagner_fischer(s1: str, s2: str,
     """
     pass
 
+
 def wagner_fischer_with_alignment(s1: str, s2: str) -> tuple[int, str, str]:
     """
     Oblicza odległość edycyjną i zwraca wyrównanie sekwencji.
@@ -30,6 +31,7 @@ def wagner_fischer_with_alignment(s1: str, s2: str) -> tuple[int, str, str]:
         (w wyrównanych ciągach '-' oznacza lukę)
     """
     pass
+
 
 def wagner_fischer_space_optimized(s1: str, s2: str) -> int:
     """

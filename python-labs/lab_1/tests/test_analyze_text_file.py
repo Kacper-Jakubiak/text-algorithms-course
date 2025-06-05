@@ -85,8 +85,8 @@ class TestAnalyzeTextFile:
             found = False
             for extracted_date in result["dates"]:
                 if (
-                    expected_date in extracted_date
-                    or expected_date.replace("/", "-") in extracted_date
+                        expected_date in extracted_date
+                        or expected_date.replace("/", "-") in extracted_date
                 ):
                     found = True
                     found_date_count += 1
@@ -99,7 +99,7 @@ class TestAnalyzeTextFile:
         for extracted_date in result["dates"]:
             for _ in text_date_formats:
                 if any(
-                    month in extracted_date for month in ["May", "January", "September"]
+                        month in extracted_date for month in ["May", "January", "September"]
                 ):
                     found_text_dates = True
                     break
@@ -133,7 +133,7 @@ class TestAnalyzeTextFile:
 
         for word, count in result["frequent_words"].items():
             assert (
-                count > 1
+                    count > 1
             ), f"Frequent word '{word}' has suspiciously low count: {count}"
 
     def test_paragraph_sizes(self):
@@ -146,5 +146,5 @@ class TestAnalyzeTextFile:
 
         total_words_in_paras = sum(result["paragraph_sizes"].values())
         assert (
-            0.9 <= total_words_in_paras / result["word_count"] <= 1.1
+                0.9 <= total_words_in_paras / result["word_count"] <= 1.1
         ), "Total words in paragraphs doesn't match overall word count"

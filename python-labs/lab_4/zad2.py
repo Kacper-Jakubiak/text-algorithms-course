@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 # Zaimplementuj funkcje rozwiązujące następujące problemy związane z najdłuższymi wspólnymi podciągami, wykorzystując struktury sufiksowe:
 from ukkonen import SuffixTree
 
+
 def longest_common_substring_tree(str1: str, str2: str) -> str:
     """
     Find the longest common substring of two strings using a suffix tree.
@@ -28,8 +29,10 @@ def longest_common_substring_tree(str1: str, str2: str) -> str:
 
     # return longest_substring
 
+
 def longest_common_substring_array(str1: str, str2: str) -> str:
     pass
+
 
 def longest_common_substring_multiple(strings: list[str]) -> str:
     """
@@ -45,6 +48,7 @@ def longest_common_substring_multiple(strings: list[str]) -> str:
     # You may use either suffix trees or suffix arrays
 
     pass
+
 
 def longest_palindromic_substring(text: str) -> str:
     """
@@ -62,6 +66,7 @@ def longest_palindromic_substring(text: str) -> str:
 
     pass
 
+
 def common():
     results = []
     lengths = [100, 1000, 10000, 100000]
@@ -76,14 +81,15 @@ def common():
         longest_common_substring_array(t1, t2)
         stop = pf()
         array_time = stop - start
-        results.append((tree_time*1000, array_time*1000))
+        results.append((tree_time * 1000, array_time * 1000))
 
-    plt.plot((2, 3, 4, 5), [r[0] for r in results], 'o', label = 'array')
-    plt.plot((2, 3, 4, 5), [r[1] for r in results], 'o', label = 'tree')
+    plt.plot((2, 3, 4, 5), [r[0] for r in results], 'o', label='array')
+    plt.plot((2, 3, 4, 5), [r[1] for r in results], 'o', label='tree')
     plt.title("zadanie 2 porównanie czasu")
     plt.legend()
     plt.savefig(f'zad2.png')
     plt.show()
+
 
 if __name__ == "__main__":
     common()

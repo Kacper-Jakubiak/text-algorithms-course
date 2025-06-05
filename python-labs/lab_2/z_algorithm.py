@@ -4,6 +4,7 @@ def len_of_common_prefix(str1: str, str2: str) -> int:
             return k
     return min(len(str1), len(str2))
 
+
 def compute_z_array(s: str) -> list[int]:
     """
     Compute the Z array for a string.
@@ -31,11 +32,11 @@ def compute_z_array(s: str) -> list[int]:
             z_array[k] = len_of_common_prefix(s, s[k:])
             if z_array[k] > 0:
                 left, right = k, k + z_array[k]
-        elif z_array[k-left] >= right-k:
-            z_array[k] = right - k + len_of_common_prefix(s[right:], s[right-k:])
+        elif z_array[k - left] >= right - k:
+            z_array[k] = right - k + len_of_common_prefix(s[right:], s[right - k:])
             left, right = k, k + z_array[k]
         else:
-            z_array[k] = z_array[k-left]
+            z_array[k] = z_array[k - left]
 
     return z_array
 

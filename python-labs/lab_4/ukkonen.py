@@ -11,6 +11,7 @@ class SuffixTreeNode:
         # Index of the suffix represented by the path from root to this node
         self.suffix_index = -1
 
+
 class SuffixTree:
     def new_node(self, start, end):
         global count
@@ -158,6 +159,7 @@ class SuffixTree:
 
         # Free the memory allocated for the suffix tree using post-order traversal
         self.free_suffix_tree_by_post_order(root)
+
 
 if __name__ == "__main__":
     text = list("abbc")

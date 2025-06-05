@@ -1,6 +1,7 @@
 from collections import deque
 from typing import List, Tuple, Optional
 
+
 class AhoCorasickNode:
     def __init__(self):
         self.goto: dict[str, 'AhoCorasickNode'] = {}
@@ -14,6 +15,8 @@ class AhoCorasickNode:
 
     def SetFail(self, node: 'AhoCorasickNode'):
         self.fail = node
+
+
 class AhoCorasick:
     def __init__(self, patterns: List[str]):
         self.root = AhoCorasickNode()
@@ -62,6 +65,7 @@ class AhoCorasick:
             for pattern in node.output:
                 result.append((i - len(pattern) + 1, pattern))
         return result
+
 
 def find_pattern_in_column(text_column: str, pattern_columns: list[str]) -> list[tuple[int, int]]:
     """
@@ -122,7 +126,6 @@ def find_pattern_2d(text: list[str], pattern: list[str]) -> list[tuple[int, int]
         for ans, _ in answers:
             result.append((ans, j))
     return result
-
 
 # if __name__ == '__main__':
 #     text = [

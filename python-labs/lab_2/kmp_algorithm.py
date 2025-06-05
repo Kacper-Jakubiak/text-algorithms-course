@@ -68,6 +68,7 @@ def kmp_pattern_match(text: str, pattern: str) -> list[int]:
                 i += 1
     return result
 
+
 if __name__ == '__main__':
     wzor = "ABABACA"
     tablice = compute_lps_array(wzor)

@@ -1,6 +1,7 @@
 # Algorytmy tekstowe
 
-The course is created with [Nextra Docs Theme](https://nextra.site/docs/docs-theme). To build the course site you need to install  [pnpm](https://pnpm.io/installation) or other package manager.
+The course is created with [Nextra Docs Theme](https://nextra.site/docs/docs-theme). To build the course site you need
+to install  [pnpm](https://pnpm.io/installation) or other package manager.
 
 If you have `pnpm` installed, follow the steps below.
 

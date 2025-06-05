@@ -65,10 +65,11 @@ def shift_or(text: str, pattern: str) -> list[int]:
     s = ~0
     for i, c in enumerate(text):
         s = (s << 1) | masks[ord(c)]
-        if nth_bit(s, m-1) == 0:
-            result.append(i-m+1)
+        if nth_bit(s, m - 1) == 0:
+            result.append(i - m + 1)
 
     return result
+
 
 if __name__ == "__main__":
     print(0xff)

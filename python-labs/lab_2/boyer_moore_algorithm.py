@@ -1,8 +1,9 @@
 def backward(text: str, pattern: str) -> int:
-    for j in range(len(pattern)-1, -1, -1):
+    for j in range(len(pattern) - 1, -1, -1):
         if text[j] != pattern[j]:
             return j
     return -1
+
 
 def compute_bad_character_table(pattern: str) -> dict[str, int]:
     """
@@ -96,12 +97,13 @@ def boyer_moore_pattern_match(text: str, pattern: str) -> list[int]:
             result.append(k)
             k += good[1]
         else:
-            bad_shift = j - bad.get(text[k+j], 0)
+            bad_shift = j - bad.get(text[k + j], 0)
             good_shift = good[j]
             # print(bad_shift, good_shift)
             k += max(bad_shift, good_shift)
 
     return result
+
 
 if __name__ == "__main__":
     compute_good_suffix_table('dźwiedź')

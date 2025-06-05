@@ -4,6 +4,7 @@ def compute_hash(s: str, base: int, prime: int) -> int:
         result = (result * base + ord(char)) % prime
     return result
 
+
 def rabin_karp_pattern_match(text: str, pattern: str, prime: int = 101) -> list[int]:
     """
     Implementation of the Rabin-Karp pattern matching algorithm.
@@ -29,7 +30,7 @@ def rabin_karp_pattern_match(text: str, pattern: str, prime: int = 101) -> list[
         return []
 
     base = 256
-    big = pow(base, m-1, prime)
+    big = pow(base, m - 1, prime)
 
     result = []
     pattern_hash = compute_hash(pattern, base, prime)
@@ -38,7 +39,7 @@ def rabin_karp_pattern_match(text: str, pattern: str, prime: int = 101) -> list[
     k = 0
     while k + m < n:
         if rolling == pattern_hash:
-            if text[k:k+m] == pattern:
+            if text[k:k + m] == pattern:
                 result.append(k)
         subtractor = (big * ord(text[k])) % prime
         adder = ord(text[k + m]) % prime
@@ -52,6 +53,7 @@ def rabin_karp_pattern_match(text: str, pattern: str, prime: int = 101) -> list[
             result.append(k)
 
     return result
+
 
 if __name__ == "__main__":
     wyn = rabin_karp_pattern_match('barbara', 'ba')

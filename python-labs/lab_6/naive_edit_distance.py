@@ -12,6 +12,7 @@ def naive_edit_distance(s1: str, s2: str) -> int:
     """
     pass
 
+
 def naive_edit_distance_with_operations(s1: str, s2: str) -> tuple[int, list[str]]:
     """
     Oblicza odległość edycyjną i zwraca listę operacji potrzebnych do przekształcenia s1 w s2.

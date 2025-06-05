@@ -1,5 +1,6 @@
 import re
 
+
 def extract_links(html: str) -> list[dict[str, str]]:
     url_pattern = r"<a href=\"(?P<url>[^\"]*)\""
     # url jest zawsze na początku, traktujemy url jako dowolne znaki oprócz [\"]

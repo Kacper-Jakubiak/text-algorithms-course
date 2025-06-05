@@ -23,7 +23,7 @@ def naive_pattern_match(text: str, pattern: str) -> list[int]:
     result: list[int] = []
     k = 0
     while k + m <= n:
-        if text[k:k+m] == pattern:
+        if text[k:k + m] == pattern:
             result.append(k)
         k += 1
 
