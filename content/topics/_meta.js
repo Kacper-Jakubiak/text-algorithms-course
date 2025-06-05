@@ -18,5 +18,9 @@ export default {
     "05-suffixes-and-pattern-matching-summary": {
         title: "Struktury Sufiksowe i Dopasowywanie Wzorców",
         type: "page"
+    },
+    "06-sequence-alignment": {
+        title: "Algorytmy wyrównywania sekwencji i podobieństwa",
+        type: "page"
     }
 }

@@ -28,6 +28,10 @@ export default {
             "05-suffixes-and-pattern-matching-summary": {
                 title: "5. Struktury Sufiksowe i Dopasowywanie Wzorców",
                 href: "/topics/05-suffixes-and-pattern-matching-summary"
+            },
+            "06-sequence-alignment": {
+                title: "6. Algorytmy wyrównywania sekwencji i podobieństwa",
+                href: "/topics/06-sequence-alignment"
             }
         }
     },
